@@ -1,7 +1,7 @@
 package next.repository;
 
 import core.di.factory.BeanFactory;
-import core.di.factory.BeanScanner;
+import core.di.factory.scanner.ClassPathBeanScanner;
 import core.jdbc.ConnectionManager;
 import next.dto.UserUpdatedDto;
 import next.model.User;
@@ -26,8 +26,8 @@ class JdbcUserRepositoryTest {
     @BeforeEach
     public void setup() {
         beanFactory = new BeanFactory();
-        BeanScanner beanScanner = new BeanScanner(beanFactory, "next.repository");
-        beanScanner.scan();
+        ClassPathBeanScanner classPathBeanScanner = new ClassPathBeanScanner(beanFactory, "next.repository");
+        classPathBeanScanner.scan();
 
         ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         populator.addScript(new ClassPathResource("jwp.sql"));
