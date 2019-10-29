@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -38,6 +39,16 @@ public class BeanFactory {
         }
 
         beans.put(bean, injectedConstructor.newInstance(getInstances(injectedConstructor)));
+    }
+
+    public void initializeBean(Class<?> bean, Method method) throws IllegalAccessException, InstantiationException {
+        Constructor<?> inject = BeanFactoryUtils.getInjectedConstructor(bean);
+        if (inject == null) {
+            beans.put(bean, bean.newInstance());
+            return;
+        }
+
+        beans.put(bean, method);
     }
 
     private Object[] getInstances(Constructor<?> injectedConstructor) throws IllegalAccessException, InstantiationException, InvocationTargetException {

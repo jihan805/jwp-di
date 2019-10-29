@@ -1,5 +1,6 @@
 package core.mvc;
 
+import core.ApplicationContext;
 import core.di.factory.BeanFactory;
 import core.di.factory.scanner.ClassPathBeanScanner;
 import core.mvc.asis.ControllerHandlerAdapter;
@@ -26,6 +27,12 @@ public class DispatcherServlet extends HttpServlet {
     private HandlerAdapterRegistry handlerAdapterRegistry;
 
     private HandlerExecutor handlerExecutor;
+
+    private ApplicationContext applicationContext;
+
+//    public DispatcherServlet(ApplicationContext applicationContext) {
+//        this.applicationContext = applicationContext;
+//    }
 
     @Override
     public void init() {
